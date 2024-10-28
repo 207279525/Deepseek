@@ -74,7 +74,13 @@ const renderMathInContent = (content: string) => {
             key={index}
             remarkPlugins={[remarkGfm]}
             components={{
-              code({node, inline, className, children, ...props}: {node?: any, inline?: boolean, className?: string, children: React.ReactNode}) {
+              code({node, inline, className, children, ...props}: {
+                node?: any; // 将改为具体类型
+                inline?: boolean;
+                className?: string;
+                children: React.ReactNode;
+                [key: string]: any; // 添加索引签名
+              }) {
                 const match = /language-(\w+)/.exec(className || '')
                 const value = String(children).replace(/\n$/, '')
                 
@@ -178,7 +184,6 @@ export function SimpleChat() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [copyHistory, setCopyHistory] = useState<Array<{ content: string, timestamp: number }>>([])
   const [copied, setCopied] = useState<boolean>(false)
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
   const [autoScroll, setAutoScroll] = useState(true)
@@ -187,13 +192,11 @@ export function SimpleChat() {
   const [showHistory, setShowHistory] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
 
-  const scrollToBottom = () => {
+  useEffect(() => {
     if (autoScroll) {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
-  }
-
-  useEffect(scrollToBottom, [messages])
+  }, [messages, autoScroll]) // 添加 autoScroll 到依赖数组
 
   // 监听滚动事件
   useEffect(() => {
@@ -230,7 +233,6 @@ export function SimpleChat() {
     try {
       await navigator.clipboard.writeText(formattedContent)
       setCopied(true)
-      setCopyHistory(prev => [...prev, { content: formattedContent, timestamp: Date.now() }])
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error('复制失败:', err)
@@ -438,7 +440,7 @@ export function SimpleChat() {
           const suggestionsText = data.choices[0].message.content
           const parsedSuggestions = suggestionsText
             .split('\n')
-            .filter(s => s.trim())
+            .filter((s: string) => s.trim()) // 添加类型注解
             .slice(0, 3)
           setSuggestions(parsedSuggestions)
         }
