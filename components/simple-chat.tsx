@@ -75,12 +75,12 @@ const renderMathInContent = (content: string) => {
             remarkPlugins={[remarkGfm]}
             components={{
               code({node, inline, className, children, ...props}: {
-                node?: any; // 将改为具体类型
+                node?: any;
                 inline?: boolean;
                 className?: string;
                 children: React.ReactNode;
-                [key: string]: any; // 添加索引签名
-              }) {
+                [key: string]: any;
+              } & React.HTMLAttributes<HTMLElement>) {  // 添加 HTMLAttributes
                 const match = /language-(\w+)/.exec(className || '')
                 const value = String(children).replace(/\n$/, '')
                 
@@ -320,7 +320,7 @@ export function SimpleChat() {
             const { done, value } = await reader.read()
             if (done) break
 
-            // 在处理每个数据块之前再次检查是否被中断
+            // 在处理每个数据块之前再次检查是��被中断
             if (newController.signal.aborted) break;
 
             const chunk = decoder.decode(value)
@@ -453,7 +453,7 @@ export function SimpleChat() {
     setInput('')
   }
 
-  // 加载历史对话
+  // 加��历史对话
   const loadChat = (chat: ChatHistory) => {
     setMessages(chat.messages)
     setShowHistory(false)
