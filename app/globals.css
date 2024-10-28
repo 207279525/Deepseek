@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 15%;  /* 更柔和的深灰色背景 */
+    --foreground: 0 0% 95%;  /* 更柔和的文字颜色 */
+    --card: 0 0% 17%;        /* 略深的卡片背景 */
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 17%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 25%;   /* 更柔和的次要背景色 */
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 25%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 0 0% 25%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 25%;      /* 更柔和的边框颜色 */
+    --input: 0 0% 25%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.markdown-content {
+  line-height: 1.6;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.markdown-content h1 { font-size: 1.5em; }
+.markdown-content h2 { font-size: 1.3em; }
+.markdown-content h3 { font-size: 1.1em; }
+
+.markdown-content a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-content a:hover {
+  text-decoration: underline;
+}
+
+.markdown-content table {
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid #ddd;
+  padding: 0.5em;
+}
+
+.markdown-content th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* 在文件末尾添加以下样式 */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1em 0;
+  margin: 0.5em 0;
+}
+
+.katex {
+  font-size: 1.1em;
+}
+
+.markdown-content .katex-display > .katex {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  text-align: initial;
+}
+
+.markdown-content .katex-html {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* 在已有的 KaTeX 样式后添加 */
+.katex-display {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+}
+
+.katex {
+  text-rendering: auto;
+  font: normal 1.1em KaTeX_Main, Times New Roman, serif;
+  line-height: 1.2;
+  text-indent: 0;
+}
+
+.katex-html {
+  text-align: center;
+}
+
+/* 确保行内公式与文本对齐 */
+.katex-inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* 处理长公式的滚动 */
+.katex-display > .katex {
+  display: inline-block;
+  text-align: center;
+  max-width: 100%;
+}
+
+.katex-display > .katex > .katex-html {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
+/* 在文件末尾添加 */
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+.copy-button {
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 640px) {
+  .copy-button {
+    opacity: 1;
+    position: static;
+    margin-top: 0.5rem;
+  }
+}
+
+/* 夜间模式下的 Markdown 样式 */
+.dark .markdown-content {
+  color: #e5e7eb;  /* 浅灰色文字 */
+}
+
+.dark .markdown-content a {
+  color: #60a5fa;  /* 蓝色链接 */
+}
+
+.dark .markdown-content blockquote {
+  border-left-color: #4b5563;  /* 深灰色引用线 */
+  color: #9ca3af;  /* 浅灰色引用文字 */
+}
+
+.dark .markdown-content th {
+  background-color: #374151;  /* 深灰色表头背景 */
+  border-color: #4b5563;  /* 深灰色表格边框 */
+}
+
+.dark .markdown-content td {
+  border-color: #4b5563;  /* 深灰色表格边框 */
+}
+
+.dark .markdown-content code {
+  background-color: hsl(0 0% 22%);  /* 更柔和的代码背景 */
+  color: #e5e7eb;  /* 浅灰色代码文字 */
+}
+
+/* 夜间模式下的数学公式样式 */
+.dark .katex {
+  color: #e5e7eb;  /* 浅灰色公式文字 */
+}
+
+/* 夜间模式下的复制按钮样式 */
+.dark .copy-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 夜间模式下的滚动条样式 */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: hsl(0 0% 18%);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 30%);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 35%);
+}
+
+/* 添加到文件末尾 */
+
+/* 优化数学公式显示 */
+.MathJax {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+/* 块级公式容器样式 */
+.math-display {
+  margin: 1em 0;
+  padding: 1em 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+/* 行内公式样式 */
+.math-inline {
+  padding: 0 0.2em;
+  vertical-align: middle;
+}
+
+/* 夜间模式下的公式样式 */
+.dark .MathJax {
+  color: #e5e7eb !important;
+}
+
+/* 添加到文件末尾 */
+
+/* 优化矩阵和方程组显示 */
+.MathJax_Display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 1em 0;
+}
+
+.MathJax_SVG_Display {
+  text-align: center;
+  margin: 1em 0;
+  min-width: min-content;
+}
+
+/* 调整矩阵间距 */
+.MathJax .mathnormal {
+  font-style: normal;
+}
+
+.MathJax .delimsizing {
+  vertical-align: middle;
+}
+
+/* 优化方程组显示 */
+.MathJax .cases {
+  margin-left: 1em;
+}
