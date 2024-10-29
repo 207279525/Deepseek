@@ -179,6 +179,12 @@ interface ChatHistory {
   timestamp: number;
 }
 
+// 在文件开头添加类型定义
+interface ApiError extends Error {
+  name: string;
+  message: string;
+}
+
 export function SimpleChat() {
   const [messages, setMessages] = useState<Array<{ role: string; content: string }>>([])
   const [input, setInput] = useState('')
@@ -320,7 +326,7 @@ export function SimpleChat() {
             const { done, value } = await reader.read()
             if (done) break
 
-            // 在处理每个数据块之前再次检查是��被中断
+            // 在处理每个数据块之前再次检查是否被中断
             if (newController.signal.aborted) break;
 
             const chunk = decoder.decode(value)
@@ -355,12 +361,15 @@ export function SimpleChat() {
           reader.releaseLock()
         }
       }
-    } catch (error: any) {
+    } catch (error: ApiError) {
       if (error.name === 'AbortError') {
         console.log('响应已中断');
       } else {
         console.error('错误:', error)
-        setMessages(prevMessages => [...prevMessages, { role: 'assistant', content: '抱歉，发生了错误。请重试。' }])
+        setMessages(prevMessages => [...prevMessages, { 
+          role: 'assistant', 
+          content: '抱歉，发生了错误。请重试。错误信息: ' + error.message 
+        }])
       }
     } finally {
       setIsLoading(false)
@@ -453,7 +462,7 @@ export function SimpleChat() {
     setInput('')
   }
 
-  // 加��历史对话
+  // 加历史对话
   const loadChat = (chat: ChatHistory) => {
     setMessages(chat.messages)
     setShowHistory(false)
